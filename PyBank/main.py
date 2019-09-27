@@ -49,8 +49,8 @@ print(f"Greatest Decrease in Profits: {PL_Min_Month} (${PL_Min:,.2f})")
 
 # Write to file
 
-output_data = [['Financial Analysis'],
-               ['----------------------- '],
+output_data = [['Financial Analysis',''],
+               ['----------------------- ',''],
                ['Total Months:', len(data)],
                ['Total:', f'${PL_agg:,.2f}'],
                ['Average Change:', f'${Avg_PL:,.2f}'],

@@ -15,11 +15,11 @@ with open(file_path, newline='') as csv_file:
     next(csv_data)
     data = list(csv_data)
 
+csv_file.close()
    # print(len(months)-1)
 
 PL_agg = 0
 PL_Max = 0
-
 PL_Min = 0
 
 # determine total value of profit / loss
@@ -47,18 +47,14 @@ print(f"Average Change: ${Avg_PL:,.2f}")
 print(f"Greatest Increase in Profits: {PL_Max_Month} (${PL_Max:,.2f})")
 print(f"Greatest Decrease in Profits: {PL_Min_Month} (${PL_Min:,.2f})")
 
-# Write to file
+file_output = open('PyBank_output.txt' , 'w')
 
-output_data = [['Financial Analysis',''],
-               ['----------------------- ',''],
-               ['Total Months:', len(data)],
-               ['Total:', f'${PL_agg:,.2f}'],
-               ['Average Change:', f'${Avg_PL:,.2f}'],
-               [f'Greatest Increase in Profits ({PL_Max_Month}):', f'${PL_Max:,.2f}'],
-               [f'Greatest Decrease in Profits ({PL_Min_Month}):', f'${PL_Min:,.2f}']]
+file_output.write('Financial Analysis \n\n')
+file_output.write('---------------------------------\n\n')
+file_output.write(f"Total Months: {len(data)}\n")
+file_output.write(f"Total: ${PL_agg:,.2f}\n")
+file_output.write(f"Average Change: ${Avg_PL:,.2f}\n")
+file_output.write(f"Greatest Increase in Profits: {PL_Max_Month} (${PL_Max:,.2f})\n")
+file_output.write(f"Greatest Decrease in Profits: {PL_Min_Month} (${PL_Min:,.2f})\n")           
 
-output_file = open('output.csv', 'w')
-with output_file:
-    writer = csv.writer(output_file)
-    writer.writerows(output_data)
-            
+print(f"File: PyBank_output.txt created")

@@ -7,8 +7,6 @@ import os
 
 file_path = os.path.join('..','Resources','budget_data.csv')
 
-print(file_path)
-
 with open(file_path, newline='') as csv_file:
 
     csv_data = csv.reader(csv_file, delimiter=',')
@@ -16,12 +14,13 @@ with open(file_path, newline='') as csv_file:
     data = list(csv_data)
 
 csv_file.close()
-   # print(len(months)-1)
 
 PL_agg = 0
 PL_Max = 0
 PL_Min = 0
-
+PL_PrevRowVal = 0
+Annual_Change = []
+Agg_Change = 0
 # determine total value of profit / loss
 for row in data:
 
@@ -34,10 +33,11 @@ for row in data:
         PL_Min = int(row[1])
         PL_Min_Month = row[0]
 
+    Annual_Change.append(int(row[1]) - PL_PrevRowVal)
+    PL_PrevRowVal = int(row[1])
 
-#print(f"{row[0]} {row[1]}")
-
-Avg_PL = PL_agg / len(data)
+del Annual_Change[0]
+Avg_PL = sum(Annual_Change) / len(Annual_Change)
 
 print('Financial Analysis \n')
 print('---------------------------------\n')
